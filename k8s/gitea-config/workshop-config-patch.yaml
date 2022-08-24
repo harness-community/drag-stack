@@ -18,5 +18,5 @@ data:
         addKubernetesSecret: true
         secretNamespace: drone
         repos:
-          - https://github.com/kameshsampath/dag-stack.git
+          - https://github.com/harness-apps/dag-stack.git
           - https://github.com/kameshsampath/drone-quickstart.git

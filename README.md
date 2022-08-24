@@ -28,7 +28,7 @@ All linux distributions adds **envsubst** via [gettext](https://www.gnu.org/soft
 ## Clone the Sources
 
 ```shell
-git clone https://github.com/kameshsampath/dag-stack && \
+git clone https://github.com/harness-apps/dag-stack && \
   cd "$(basename "$_" .git)" && direnv allow .
 ```
 
@@ -115,8 +115,8 @@ drone info
 
 Few applications that you can try with this stack,
 
-- <https://github.com/kameshsampath/quarkus-springboot-demo-gitops>
-- MERNStack
+- <https://github.com/haness-apps/quarkus-springboot-demo-gitops>
+- <https://github.com/harness-apps/MERN-Stack-Example>
 
 ## Gotchas
 
