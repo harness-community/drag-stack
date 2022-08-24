@@ -1,0 +1,34 @@
+namespace: infra
+
+commonLabels:
+  group: my-registry
+
+resources:
+  # - "deployment.yaml"
+  # - "service.yaml"
+  # - "pvc.yaml"
+  - "dind.yaml"
+  # - "job.yaml"
+  # - "ingress.yaml"
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+  - name: scripts
+    files:
+      - "test.sh"
+      - "Dockerfile"
+
+secretGenerator:
+  - name: registry-config
+    literals:
+      - "IMAGE_REGISTRY_USER=admin"
+      - "IMAGE_REGISTRY_PASSWORD=admin123"
+#   - name: registry-aliases
+#     literals:
+#       # comma separated list of aliases
+#       - "REGISTRY_ALIASES=my-registry.example.com"
+#       # defaults to custom registry that we deploy, update it to
+#       # others if needed
+#       - "REGISTRY_SVC=my-registry.infra.svc.cluster.local"

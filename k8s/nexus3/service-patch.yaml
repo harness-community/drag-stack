@@ -1,0 +1,16 @@
+- op: add
+  path: "/spec/ports/-"
+  value:
+    name: nexus-registry-port
+    nodePort: 31081
+    protocol: TCP
+    port: 80
+    targetPort: 18081
+- op: replace
+  path: "/spec/ports/0"
+  value:
+    name: nexus-http-port
+    nodePort: 30081
+    protocol: TCP
+    port: 8081
+    targetPort: 8081-tcp

@@ -1,0 +1,9 @@
+mirrors:
+  "nexus.infra.svc.cluster.local":
+    endpoint:
+      - "${REGISTRY_SERVICE_ENDPOINT}"
+configs:
+  "nexus.infra.svc.cluster.local":
+    auth:
+      username: admin
+      password: admin123

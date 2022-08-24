@@ -1,0 +1,8 @@
+namespace: infra
+
+commonLabels:
+  group: my-registry
+
+resources:
+  - "sa.yaml"
+  - "config-updater-rbac.yaml"

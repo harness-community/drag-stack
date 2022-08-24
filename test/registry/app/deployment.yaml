@@ -1,0 +1,35 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-registry
+  labels:
+    app.kubernetes.io/name: my-registry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: my-registry
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: my-registry
+    spec:
+      containers:
+      - name: my-registry
+        image: registry:2
+        ports:
+        - containerPort: 5000
+          protocol: TCP
+        volumeMounts:
+        - name: storage
+          mountPath: /var/lib/registry
+        env:
+        - name: REGISTRY_HTTP_ADDR
+          value: "0.0.0.0:5000"
+        - name: REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY
+          value: /var/lib/registry
+      volumes:
+      - name: storage
+        persistentVolumeClaim:
+          claimName: my-registry-pvc

@@ -1,0 +1,39 @@
+destination:
+  server: https://kubernetes.default.svc
+source:
+  repoURL: ${GITEA_URL}/${GITEA_USER}/dag.git
+  targetRevision: ${DAG_TARGET_VERSION}
+gitea:
+  server:
+    outClusterURL: ${GITEA_URL}
+    inClusterURL: ${GITEA_INTERNAL_URL}
+  oAuthSecret: demo-oauth-${GITEA_USER}-secret
+  username: ${GITEA_USER}
+  password: ${GITEA_USER}@123
+drone:
+  docker:
+    runner:
+      insecureRegistries:
+        - "${REGISTRY_NAME}"
+  server:
+    version: 0.6.0
+    host: ${DRONE_SERVER_URL}
+    namespace: drone
+    hostAliases:
+      - ip: ${GITEA_HTTP_CLUSTER_IP}
+        hostnames:
+          - ${GITEA_DOMAIN}
+    admin:
+      enable: ${ENABLE_DRONE_ADMIN}
+argocd:
+  imageUpdater:
+    versio: 0.8.0
+    logLevel: debug
+    registries:
+      - name: "${REGISTRY_NAME}"
+        prefix: "${REGISTRY_NAME}"
+        api_url: "http://${REGISTRY_NAME}"
+        default: true
+        defaultns: example
+        insecure: true
+        credentials: "secret:infra/${NEXUS_ADMIN_CREDENTIALS_SECRET}#creds"

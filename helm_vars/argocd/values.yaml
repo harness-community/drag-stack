@@ -1,0 +1,21 @@
+global:
+  image:
+    tag: "v2.4.9"
+  hostAliases:
+   - ip: "${GITEA_HTTP_CLUSTER_IP}"
+     hostnames:
+       - gitea-127.0.0.1.sslip.io
+server:
+  extraArgs: 
+    - --insecure
+  service:
+     type: NodePort
+     nodePortHttp: 30080
+     nodePortHttps: 30443
+     servicePortHttp: 8080
+     servicePortHttps: 8443
+configs:
+  secret:
+    # htpasswd -nbBC 10 "" $ARGO_ADMIN_PASSWORD | tr -d ':\n' | sed 's/$2y/$2a/'
+    # Password Value is demo@123
+    argocdServerAdminPassword: "$2a$10$/hp1NShyikOaiq4VCLJOwu3tK9J1iOJTgdmdU6lK2io28LUXkbanG"

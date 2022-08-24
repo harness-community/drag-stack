@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: docker-dind
+  labels:
+    app.kubernetes.io/name: docker-dind
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: docker-dind
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: docker-dind
+    spec:
+      volumes:
+        - name: storage
+          emptyDir: {}
+        - name: scripts
+          configMap:
+            name: scripts
+            items:
+              - key: test.sh
+                path: test.sh
+                mode: 0755
+              - key: Dockerfile
+                path: Dockerfile
+      containers:
+        - name: docker-dind
+          image: docker:20-dind
+          imagePullPolicy: IfNotPresent
+          command:
+            - "dockerd"
+          args:
+            - "--host"
+            - "tcp://localhost:2375"
+            - "--insecure-registry=$(MY_REGISTRY_URL)"
+            - "--mtu"
+            - "1450"
+          env:
+            - name: MY_REGISTRY_URL
+              value: "${REGISTRY_NAME}"
+          envFrom:
+            - secretRef:
+                name: registry-config
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: storage
+              mountPath: /var/lib/docker
+              subPath: docker
+        - name: tools
+          image: kameshsampath/kube-dev-tools:v0.0.6
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: DOCKER_HOST
+              value: tcp://localhost:2375
+            - name: MY_REGISTRY_URL
+              value: "${REGISTRY_NAME}"
+          envFrom:
+            - secretRef:
+                name: registry-config
+          command:
+            - tail
+            - -f
+            - /dev/null
+          volumeMounts:
+            - mountPath: /scripts
+              name: scripts
+              readOnly: false

@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+helm repo add argo https://argoproj.github.io/argo-helm
+helm repo update
+
+GITEA_HTTP_CLUSTER_IP=$(kubectl get -n default svc gitea-http -ojsonpath='{.spec.clusterIP}'
+)
+export GITEA_HTTP_CLUSTER_IP
+
+[[ -n "$GITEA_HTTP_CLUSTER_IP" ]] && envsubst < "$DAG_HOME/helm_vars/argocd/values.yaml" | helm upgrade --install argocd argo/argo-cd \
+  --create-namespace \
+  --namespace=argocd \
+  --values - \
+  --wait
+
+envsubst < "$DAG_HOME/helm_vars/dag/values.tpl.yaml" > "$DAG_HOME/helm_vars/dag/values.yaml"
+
+git commit -a -m "Init DAG"
+git push origin "${DAG_TARGET_VERSION}"
+
+envsubst < "$DAG_HOME/k8s/dag/app.yaml" | kubectl apply -f -
+
+argocd login --plaintext "${ARGOCD_SERVER_HOST}" --insecure --username admin --password='demo@123' 
+
+argocd app sync --assumeYes --timeout=600 dag-apps
+
+# Patching Gitea with Drone IP for resolving
+DRONE_SERVICE_IP="$(kubectl get svc -n drone drone -ojsonpath='{.spec.clusterIP}')"
+export DRONE_SERVICE_IP
+kubectl patch statefulset gitea -n default --patch "$(envsubst<$DAG_HOME/k8s/gitea/patch.json)"
+
+kubectl rollout status -n default statefulset gitea --timeout=30s

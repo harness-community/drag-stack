@@ -1,0 +1,82 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: drone-runner-kube
+  namespace: argocd
+  # Add this finalizer ONLY if you want these to cascade delete.
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    name: drone-runner-kube
+spec:
+  project: dag-project
+  source:
+    # Can point to either a Helm chart repo or a git repo.
+
+    # Using the Charts Repo
+    repoURL: https://charts.drone.io 
+    targetRevision: {{ .Values.drone.kube.runner.version }} 
+    chart: drone-runner-kube  
+
+    # Using Git Repo this has patch for hostAliases
+    # TODO: set to official repo once the PR is merged
+    # repoURL: https://github.com/kameshsampath/drone-charts.git  
+    # targetRevision:  {{ .Values.drone.server.version }}
+    # path: charts/drone-runner-kube
+
+    helm:
+      releaseName: drone-runner-kube
+      # TODO move to public repo in case you want to use values file 
+      # over the inline values
+      # valueFiles:
+      # - values-prod.yaml
+      values: |
+        extraSecretNamesForEnvFrom:
+          # all the other as $PROJECT_HOME/k8s/.env variables are loaded via this secret
+          # https://docs.drone.io/server/reference/
+          - {{ .Values.gitea.oAuthSecret }}
+        env:
+          DRONE_RPC_HOST: "drone:30980"
+
+      # Optional Helm version to template with. If omitted it will fall back to look at the 'apiVersion' in Chart.yaml
+      # and decide which Helm binary to use automatically. This field can be either 'v2' or 'v3'.
+      version: v3
+
+  # Destination cluster and namespace to deploy the application
+  destination:
+    server: {{ .Values.destination.server }}
+    # The namespace will only be set for namespace-scoped resources that have not set a value for .metadata.namespace
+    namespace: {{ .Values.drone.server.namespace }}
+
+  # Sync policy
+  syncPolicy:
+    automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
+      prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
+      selfHeal: true # Specifies if partial app sync should be executed when resources are changed only in target Kubernetes cluster and no git change detected ( false by default ).
+      allowEmpty: false # Allows deleting all application resources during automatic syncing ( false by default ).
+    syncOptions:     # Sync options which modifies sync behavior
+    - Validate=false # disables resource validation (equivalent to 'kubectl apply --validate=false') ( true by default ).
+    - CreateNamespace=true # Namespace Auto-Creation ensures that namespace specified as the application destination exists in the destination cluster.
+    - PrunePropagationPolicy=foreground # Supported policies are background, foreground and orphan.
+    - PruneLast=true # Allow the ability for resource pruning to happen as a final, implicit wave of a sync operation
+    # The retry feature is available since v1.7
+    retry:
+      limit: 5 # number of failed sync attempt retries; unlimited number of attempts if less than 0
+      backoff:
+        duration: 5s # the amount to back off. Default unit is seconds, but could also be a duration (e.g. "2m", "1h")
+        factor: 2 # a factor to multiply the base duration after each failed retry
+        maxDuration: 3m # the maximum amount of time allowed for the backoff strategy
+
+  # Will ignore differences between live and desired states during the diff. Note that these configurations are not
+  # used during the sync process.
+  ignoreDifferences:
+  # for the specified json pointers
+  - group: apps
+    kind: Deployment
+    jsonPointers:
+    - /spec/replicas
+  # for the specified managedFields managers
+  - group: "*"
+    kind: "*"
+    managedFieldsManagers:
+    - kube-controller-manager

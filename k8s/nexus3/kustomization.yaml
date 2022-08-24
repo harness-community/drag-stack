@@ -1,0 +1,30 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: infra
+
+resources:
+  - https://github.com/kameshsampath/kube-dev-utils//nexus3?ref=main
+  - argocd-img-updater-rbac.yaml
+
+configMapGenerator:
+  - name: nexus3-config
+    behavior: merge
+    literals:
+      - "NEXUS_URL=http://nexus.infra.svc.cluster.local:8081"
+      - "ANONYMOUS_ACCESS=true"
+      - "NEXUS_NS=infra"
+      - "NEXUS_DEPLOYMENT=nexus3"
+
+patchesJson6902:
+  - target:
+      group: batch
+      version: v1
+      kind: Job
+      name: configure-nexus
+    path: ./job-patch.yaml
+  - target:
+      kind: Service
+      version: v1
+      name: nexus
+    path: ./service-patch.yaml

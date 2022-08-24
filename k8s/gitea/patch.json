@@ -1,0 +1,14 @@
+{
+  "spec": {
+    "template": {
+      "spec": {
+        "hostAliases": [
+          {
+            "ip": "${DRONE_SERVICE_IP}",
+            "hostnames": ["drone-127.0.0.1.sslip.io"]
+          }
+        ]
+      }
+    }
+  }
+}

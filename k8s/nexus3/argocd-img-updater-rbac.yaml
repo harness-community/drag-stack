@@ -1,0 +1,23 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: image-updater-secret-reader
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["secrets"]
+  verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: image-updater-secret-reader
+subjects:
+- kind: ServiceAccount
+  name: argocd-image-updater
+  namespace: argocd
+  apiGroup: ""
+roleRef:
+  kind: Role
+  name: image-updater-secret-reader
+  apiGroup: rbac.authorization.k8s.io

@@ -1,0 +1,38 @@
+# Git repositories configure Argo CD with (optional).
+# This list is updated when configuring/removing repos from the UI/CLI
+# Note: the last example in the list would use a repository credential template, configured under "argocd-repo-creds.yaml".
+apiVersion: v1
+kind: Secret
+metadata:
+  name: gitea-dag-repo
+  namespace: argocd
+  labels:
+    argocd.argoproj.io/secret-type: repository
+stringData:
+  url: {{ .Values.gitea.server.outClusterURL }}/{{ .Values.gitea.username }}/dag.git
+  password: {{ .Values.gitea.username }}
+  username: {{ .Values.gitea.password }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: drone-helm-repo
+  namespace: argocd
+  labels:
+    argocd.argoproj.io/secret-type: repository
+stringData:
+  url: https://charts.drone.io
+  name: drone
+  type: helm
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: argocd-helm-repo
+  namespace: argocd
+  labels:
+    argocd.argoproj.io/secret-type: repository
+stringData:
+  url: https://argoproj.github.io/argo-helm
+  name: argo
+  type: helm

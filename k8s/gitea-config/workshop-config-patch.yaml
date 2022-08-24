@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/version: "0.1.0-alpha"
+  name: workshop-config
+  namespace: drone
+data:
+  workshop.yaml: |-
+      giteaAdminUserName: demo
+      giteaAdminUserPassword: demo@123
+      giteaURL: http://gitea-http.default:30950/
+      users:
+        from: 1
+        to: 1
+        oAuthAppName: demo-oauth
+        oAuthRedirectURI: http://drone-127.0.0.1.sslip.io:30980
+        addKubernetesSecret: true
+        secretNamespace: drone
+        repos:
+          - https://github.com/kameshsampath/dag-stack.git
+          - https://github.com/kameshsampath/drone-quickstart.git

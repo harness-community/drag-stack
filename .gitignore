@@ -1,0 +1,16 @@
+**/.env*
+secret*
+!bin
+k8s.code-workspace
+gitea-config
+k8s/drone.yaml
+NOTES.txt
+!k8s/gitea-config
+!.envrc
+work/**
+!work/README.md
+!work/.envrc
+.k3s
+hack/*.yaml
+hack/registries.yaml
+*.code-workspace

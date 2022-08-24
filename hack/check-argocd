@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+printf "\nUsing %s as the working directory for checking 'deploying-argocd' challenge\n" "${DAG_HOME}"
+
+kubectl rollout status deployment -n argocd argocd-server --timeout=60s || fail-message "I expected an argocd-server deployment"
+
+kubectl rollout status deployment -n argocd argocd-image-updater --timeout=60s || fail-message "I expected an argocd-image-updater deployment"
+
+kubectl rollout status deployment -n argocd argocd-applicationset-controller --timeout=60s || fail-message "I expected an argocd-applicationset-controller deployment" 
+
+kubectl rollout status deployment -n argocd argocd-notifications-controller --timeout=60s || fail-message "I expected an argocd-notifications-controller deployment"
+
+kubectl rollout status deployment -n argocd argocd-dex-server --timeout=60s || fail-message "I expected an argocd-dex-server deployment"
+
+kubectl rollout status deployment -n argocd argocd-repo-server --timeout=60s || fail-message "I expected an argocd-repo-server deployment" 
+
+exit 0

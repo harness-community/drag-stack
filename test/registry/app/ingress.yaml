@@ -1,0 +1,19 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-registry
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+spec:
+  rules:
+  - host: "my-registry.${TRAEFIK_LOADBALANCER_IP}.sslip.io"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service: 
+            name: my-registry
+            port: 
+             number: 5000

@@ -1,0 +1,24 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: my-registry-patch-core-dns
+spec:
+  ttlSecondsAfterFinished: 100
+  template:
+    spec:
+      serviceAccountName: my-registry-sa
+      containers:
+        - name: core-dns-patcher
+          image: kameshsampath/patch-core-dns:latest
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: registry-aliases
+          env:
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+      restartPolicy: Never
+  backoffLimit: 0
