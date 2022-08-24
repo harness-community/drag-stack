@@ -12,23 +12,19 @@ The stack also deploys [Argo CD Image Updater](https://argocd-image-updater.read
 - [k3d](https://k3d.io/)
 - [Helm](https://helm.sh/)
 - [Kustomize](https://kustomize.io/)
-- [httpie](https://httpie.io/)
 - [envsusbst](https://www.man7.org/linux/man-pages/man1/envsubst.1.html)
-
-All linux distributions adds **envsubst** via [gettext](https://www.gnu.org/software/gettext/) package. On macOS it can be installed using [Homebrew](https://brew.sh/) like `brew install gettext`.
-
+  
 ### Optional
 
 - [Argo CD CLI](https://github.com/argoproj/argo-cd/releases/latest)
 - [direnv](https://direnv.net/)
-- [yq](https://github.com/mikefarah/yq)
-- [jq](https://stedolan.github.io/jq/)
-- [stern](https://github.com/wercker/stern)
+
+All linux distributions adds **envsubst** via [gettext](https://www.gnu.org/software/gettext/) package. On macOS it can be installed using [Homebrew](https://brew.sh/) like `brew install gettext`.
 
 ## Clone the Sources
 
 ```shell
-git clone https://github.com/harness-apps/dag-stack && \
+git clone https://github.com/kameshsampath/dag-stack && \
   cd "$(basename "$_" .git)" && direnv allow .
 ```
 
@@ -50,7 +46,7 @@ $DAG_HOME/hack/cluster.sh
 $DAG_HOME/hack/install-gitea
 ```
 
-You can now access Gitea in your browser using the url <http://gitea-127.0.0.1.sslip.io:30950>. Default credentials `demo/demo@123`.
+You can access Gitea now in your browser using open <http://gitea-127.0.0.1.sslip.io:30950>. Default credentials `demo/demo@123`.
 
 ## Deploy ArgoCD
 
@@ -58,7 +54,7 @@ You can now access Gitea in your browser using the url <http://gitea-127.0.0.1.s
 $DAG_HOME/hack/install-argocd
 ```
 
-You can now access Argo CD in your browser using the url <http://argocd-127.0.0.1.sslip.io:30080>. Default credentials `admin/demo@123`.
+You can access Argo CD now in your browser using open <http://argocd-127.0.0.1.sslip.io:30080>. Default credentials `admin/demo@123`.
 
 ## Cluster Bootstrapping
 
@@ -72,8 +68,6 @@ The cluster bootstrapping  that we did in earlier step installs the core DAG sta
 A successful ArgoCD Deployment of Drone should look as shown below,
 
 ![ArgoCD Apps](./docs/images/dag_apps.png)
-
-You can now access Drone CI in your browser using the url <http://drone-127.0.0.1.sslip.io:30080>.
 
 ## Verify Gitea Patch
 
@@ -95,11 +89,9 @@ $DRONE_SERVICE_IP   drone-127.0.0.1.sslip.io
 What we have done until now,
 
 - Setup Gitea
-- Setup Argo CD
 - Setup `dag-apps` Argo CD that in turn setup
   - Drone Server
   - Drone Kube Runner
-  - Drone Docker Runner
 
 ### Add Drone Admin User
 
@@ -115,8 +107,8 @@ drone info
 
 Few applications that you can try with this stack,
 
-- <https://github.com/haness-apps/quarkus-springboot-demo-gitops>
-- <https://github.com/harness-apps/MERN-Stack-Example>
+- <https://github.com/kameshsampath/quarkus-springboot-demo-gitops>
+- MERNStack
 
 ## Gotchas
 

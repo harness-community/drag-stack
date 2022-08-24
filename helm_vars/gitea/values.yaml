@@ -8,7 +8,7 @@ service:
     type: NodePort 
     # the gitea-http service port
     port: 30950
-    # this port will be used in KinD extra port mappings to allow accessing the 
+    # this port will be used in port mappings to allow accessing the 
     # Gitea server from our laptops
     nodePort: 30950
 gitea:
@@ -21,17 +21,18 @@ gitea:
     email: admin@example.com
   config:
     server:
+      DISABLE_SSH: true
       # for this demo we will use http protocol to access Git repos
       PROTOCOL: http
       # the port gitea will listen on
       HTTP_PORT: 30950
-      # the Git domain - all the repositories will be using this domain
-      DOMAIN: gitea-127.0.0.1.sslip.io
       # The clone base url e.g. if repo is demo/foo the clone url will be 
-      # http://gitea-127.0.0.1.sslip.io:30950/demo/foo
-      ROOT_URL: http://gitea-127.0.0.1.sslip.io:30950/
+      # $GITEA_URL/demo/foo
+      ROOT_URL: "${GITEA_URL}"
+    repository:
+      DEFAULT_BRANCH: "${DAG_TARGET_VERSION}"
     webhook:
       # since we will deploy to local network we will allow all hosts
       ALLOWED_HOST_LIST: "*"
-      # since we are in http mode disable TLS
+      # lets not do tls checks for local 
       SKIP_TLS_VERIFY: true

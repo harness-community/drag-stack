@@ -1,10 +1,6 @@
 global:
   image:
     tag: "v2.4.9"
-  hostAliases:
-   - ip: "${GITEA_HTTP_CLUSTER_IP}"
-     hostnames:
-       - gitea-127.0.0.1.sslip.io
 server:
   extraArgs: 
     - --insecure

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+direnv allow .
+
 kubectl rollout status statefulsets.apps gitea --timeout=60s || printf "I expected an gitea statefulset"  
 
 kubectl get svc gitea-http  || printf "I expected an gitea-http deployment"  

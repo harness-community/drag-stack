@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+direnv allow .
+
 printf "\nUsing %s as the working directory for checking 'deploying-argocd' challenge\n" "${DAG_HOME}"
 
 kubectl rollout status deployment -n argocd argocd-server --timeout=60s || fail-message "I expected an argocd-server deployment"
