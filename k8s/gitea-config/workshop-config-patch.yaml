@@ -18,7 +18,7 @@ data:
         addKubernetesSecret: true
         secretNamespace: drone
         repos:
-          - https://github.com/kameshsampath/dag-stack.git
-          - https://github.com/kameshsampath/dag-setup-verifier.git
-          - https://github.com/kameshsampath/quarkus-springboot-demo.git
-          - https://github.com/kameshsampath/quarkus-springboot-demo-gitops.git
+          - https://github.com/harness-apps/dag-stack.git
+          - https://github.com/harness-apps/dag-setup-verifier.git
+          - https://github.com/harness-apps/quarkus-springboot-demo.git
+          - https://github.com/harness-apps/quarkus-springboot-demo-gitops.git

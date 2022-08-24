@@ -4,5 +4,5 @@ You can keep this folder for all works/exercises. It has `.envrc` that automatic
 
 ## GitOps Apps
 
-<https://github.com/kameshsampath/quarkus-springboot-demo.git>
-<https://github.com/kameshsampath/quarkus-springboot-demo-gitops.git>
+<https://github.com/harness-apps/quarkus-springboot-demo.git>
+<https://github.com/harness-apps/quarkus-springboot-demo-gitops.git>
