@@ -16,10 +16,9 @@ spec:
   source:
     # Can point to either a Helm chart repo or a git repo.
 
-    # Using the Charts Repo
-    repoURL: https://charts.drone.io 
-    targetRevision: {{ .Values.drone.server.version }} 
-    chart: drone  
+    repoURL: https://github.com/drone/charts
+    targetRevision: dind-for-server
+    path: charts/drone
 
     # Using Git Repo this has patch for hostAliases
     # TODO: set to official repo once the PR is merged
@@ -38,6 +37,24 @@ spec:
         hostAliases:
           {{- toYaml . | nindent 10 }}
       {{- end }}
+        extraVolumes:
+          - name: storage
+            emptyDir: {}
+        dind:
+          repository: docker
+          tag: 20-dind
+          pullPolicy: IfNotPresent
+          command:
+            - "dockerd"
+          commandArgs:
+            - "--host"
+            - "tcp://localhost:2375"
+          securityContext:
+            privileged: true
+          extraVolumeMounts:
+            - name: storage
+              mountPath: /var/lib/docker
+              subPath: docker
         service:
           # the Drone Kubernetes service type
           type: NodePort
@@ -51,7 +68,15 @@ spec:
           # https://docs.drone.io/server/reference/
           - {{ .Values.gitea.oAuthSecret }}
 
+        image:
+          repository: jimsheldon/drone
+          tag: oss-amd64
+          pullPolicy: Always
+
         env:
+          DRONE_AGENTS_DISABLED: true
+          DOCKER_HOST: "tcp://localhost:2375"
+          DRONE_LOGS_DEBUG: true
           # the Drone server host typically what the drone runners will use to 
           # communicate with the server
           DRONE_SERVER_HOST: {{ .Values.drone.server.host }}
