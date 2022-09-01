@@ -30,7 +30,7 @@ drone:
     runner:
       version: 0.3.0
       insecureRegistries: []
-      mtu: "1450"
+      mtu: "1410"
   # Drone Helm Chart settings
   server:
     # the chart version
