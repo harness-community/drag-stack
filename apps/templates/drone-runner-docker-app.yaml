@@ -45,6 +45,7 @@ spec:
           # https://docs.drone.io/server/reference/
           - {{ .Values.gitea.oAuthSecret }}
         env:
+          DRONE_RUNNER_NETWORK_OPTS: "com.docker.network.driver.mtu:{{ .Values.drone.docker.runner.mtu }}"
           DRONE_RPC_HOST: "drone:30980"
 
       # Optional Helm version to template with. If omitted it will fall back to look at the 'apiVersion' in Chart.yaml
