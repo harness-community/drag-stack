@@ -28,3 +28,8 @@ patchesJson6902:
       version: v1
       name: nexus
     path: ./service-patch.yaml
+  - target:
+      kind: PersistentVolumeClaim
+      version: v1
+      name: nexus-data
+    path: ./pvc-patch.yaml
