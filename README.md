@@ -1,4 +1,4 @@
-# Drone CI, registry, Argo CD & Git Repository (DRAG) Stack
+# Drone CI, Registry, Argo CD & Git repository (DRAG) Stack
 
 A demo to demonstrate on how to setup [Drone](https://drone.io), [Argo CD](https://argo-cd.readthedocs.io/) and [Gitea](https://gitea.io/) with [k3d](k3d.io/) as your local **[k3s](https://k3s.io)** based Kubernetes Cluster.
 
