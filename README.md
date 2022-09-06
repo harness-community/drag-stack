@@ -1,4 +1,4 @@
-# Drone Argo CD Gitea(DAG) Stack
+# Drone CI, registry, Argo CD & Git Repository (DRAG) Stack
 
 A demo to demonstrate on how to setup [Drone](https://drone.io), [Argo CD](https://argo-cd.readthedocs.io/) and [Gitea](https://gitea.io/) with [k3d](k3d.io/) as your local **[k3s](https://k3s.io)** based Kubernetes Cluster.
 
@@ -28,7 +28,7 @@ All linux distributions adds **envsubst** via [gettext](https://www.gnu.org/soft
 ## Clone the Sources
 
 ```shell
-git clone https://github.com/harness-apps/dag-stack && \
+git clone https://github.com/harness-apps/drag-stack && \
   cd "$(basename "$_" .git)" && direnv allow .
 ```
 
@@ -62,7 +62,7 @@ You can now access Argo CD in your browser using the url <http://argocd-127.0.0.
 
 ## Cluster Bootstrapping
 
-The cluster bootstrapping  that we did in earlier step installs the core DAG stack applications ([App of Apps](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#app-of-apps)) and DAG stack has the following child applications,
+The cluster bootstrapping  that we did in earlier step installs the core DRAG stack applications ([App of Apps](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#app-of-apps)) and DRAG stack has the following child applications,
 
 - Argo CD Image Updater
 - Drone Server
