@@ -2,7 +2,7 @@
 
 A demo to demonstrate on how to setup [Drone](https://drone.io), [Argo CD](https://argo-cd.readthedocs.io/) and [Gitea](https://gitea.io/) with [k3d](k3d.io/) as your local **[k3s](https://k3s.io)** based Kubernetes Cluster.
 
-This demo also shows how to use the Argo CD [declarative setup](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/) to setup [Drone](https://drone.io) with Drone Kubernetes runner.
+This demo also shows how to use the Argo CD [declarative setup](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/) to setup [Drone](https://drone.io) with Drone Docker runner.
 
 The stack also deploys [Argo CD Image Updater](https://argocd-image-updater.readthedocs.io/en/stable) to enable updating the application images via GitOps.
 
@@ -62,7 +62,7 @@ The cluster bootstrapping  that we did in earlier step installs the core DAG sta
 
 - Argo CD Image Updater
 - Drone Server
-- Droner Runners
+- Docker Runner
 - Nexus3 Maven Repository Manager
 
 A successful ArgoCD Deployment of Drone should look as shown below,
@@ -91,7 +91,7 @@ What we have done until now,
 - Setup Gitea
 - Setup `dag-apps` Argo CD that in turn setup
   - Drone Server
-  - Drone Kube Runner
+  - Drone Docker Runner
 
 ### Add Drone Admin User
 
