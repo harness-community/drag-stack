@@ -23,9 +23,6 @@ gitea:
   password: user-01@123
 # Drone settings
 drone:
-  kube:
-    runner:
-      version: 0.1.10
   docker:
     runner:
       version: 0.3.0
