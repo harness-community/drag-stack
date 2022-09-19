@@ -27,6 +27,7 @@ spec:
         portal:
           frontend:
              service:
+                type: NodePort
                 nodePort: {{ .Values.litmus.portal.frontend.service.nodePort }}
       version: v3
 
