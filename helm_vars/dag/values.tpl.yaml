@@ -32,3 +32,8 @@ argocd:
         defaultns: example
         insecure: true
         credentials: "secret:infra/${NEXUS_ADMIN_CREDENTIALS_SECRET}#creds"
+litmus:
+  portal:
+    frontend:
+        service:
+          nodePort: 30987
