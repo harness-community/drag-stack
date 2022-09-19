@@ -26,11 +26,17 @@ spec:
     server: {{ .Values.destination.server }}
   - namespace: argocd
     server: {{ .Values.destination.server }}
+  - namespace: litmus
+    server: {{ .Values.destination.server }}
 
   # Deny all cluster-scoped resources from being created, except for Namespace
   clusterResourceWhitelist:
   - group: ''
     kind: Namespace
+  - group: 'rbac.authorization.k8s.io'
+    kind: ClusterRole
+  - group: 'rbac.authorization.k8s.io'
+    kind: ClusterRoleBinding
   
   # Allow all namespaced-scoped resources to be created, except for ResourceQuota, LimitRange, NetworkPolicy
   namespaceResourceBlacklist:
