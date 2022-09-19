@@ -51,6 +51,10 @@ argocd:
     registries: []
 registry:
   enabled: true
-litmuschaos:
+litmus:
   version: main
   scope: cluster
+  portal:
+    frontend:
+        service:
+          nodePort: 30987

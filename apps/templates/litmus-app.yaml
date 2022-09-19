@@ -23,7 +23,11 @@ spec:
     helm:
       releaseName: litmuschaos
       values: |
-        portalScope: "{{ .Values.litmuschaos.scope }}"
+        portalScope: "{{ .Values.litmus.scope }}"
+        portal:
+          frontend:
+             service:
+                nodePort: {{ .Values.litmus.portal.frontend.service.nodePort }}
       version: v3
 
   # Destination cluster and namespace to deploy the application
