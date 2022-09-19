@@ -8,16 +8,16 @@ metadata:
   labels:
     name: litmus
 spec:
-  project: drag-project
+  project: dag-project
   source:
     repoURL: https://github.com/jimsheldon/litmus-helm
-    targetRevision: "{{.Values.litmuschaos.version}}"
+    targetRevision: "{{.Values.litmus.version}}"
     path: charts/litmus
 
     # Using the Charts Repo
     # TODO: move to use charts once nodeport value is customizable
     # repoURL: https://litmuschaos.github.io/litmus-helm/
-    # targetRevision: "{{.Values.litmuschaos.version}}"
+    # targetRevision: "{{.Values.litmus.version}}"
     # chart: litmus
 
     helm:
@@ -27,6 +27,7 @@ spec:
         portal:
           frontend:
              service:
+                type: NodePort
                 nodePort: {{ .Values.litmus.portal.frontend.service.nodePort }}
       version: v3
 

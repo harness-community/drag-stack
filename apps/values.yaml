@@ -52,7 +52,7 @@ argocd:
 registry:
   enabled: true
 litmus:
-  version: main
+  version: master
   scope: cluster
   portal:
     frontend:
