@@ -8,7 +8,7 @@ metadata:
   labels:
     name: litmus
 spec:
-  project: drag-project
+  project: dag-project
   source:
     repoURL: https://github.com/jimsheldon/litmus-helm
     targetRevision: "{{.Values.litmus.version}}"
