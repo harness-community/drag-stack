@@ -54,3 +54,6 @@ argocd:
     registries: []
 registry:
   enabled: true
+litmuschaos:
+  version: 2.12.0
+  scope: cluster
