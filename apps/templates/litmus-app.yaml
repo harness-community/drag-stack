@@ -11,13 +11,13 @@ spec:
   project: drag-project
   source:
     repoURL: https://github.com/jimsheldon/litmus-helm
-    targetRevision: "{{.Values.litmuschaos.version}}"
+    targetRevision: "{{.Values.litmus.version}}"
     path: charts/litmus
 
     # Using the Charts Repo
     # TODO: move to use charts once nodeport value is customizable
     # repoURL: https://litmuschaos.github.io/litmus-helm/
-    # targetRevision: "{{.Values.litmuschaos.version}}"
+    # targetRevision: "{{.Values.litmus.version}}"
     # chart: litmus
 
     helm:
