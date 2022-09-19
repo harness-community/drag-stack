@@ -36,3 +36,15 @@ stringData:
   url: https://argoproj.github.io/argo-helm
   name: argo
   type: helm
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: litmus-helm-repo
+  namespace: argocd
+  labels:
+    argocd.argoproj.io/secret-type: repository
+stringData:
+  url: https://litmuschaos.github.io/litmus-helm/
+  name: litmus
+  type: helm
