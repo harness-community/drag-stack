@@ -10,18 +10,19 @@ metadata:
 spec:
   project: drag-project
   source:
-    repoURL: https://litmuschaos.github.io/litmus-helm/
+    repoURL: https://github.com/jimsheldon/litmus-helm
     targetRevision: "{{.Values.litmuschaos.version}}"
-    chart: litmus
+    path: charts/litmus
+
+    # Using the Charts Repo
+    # repoURL: https://litmuschaos.github.io/litmus-helm/
+    # targetRevision: "{{.Values.litmuschaos.version}}"
+    # chart: litmus
 
     helm:
       releaseName: litmuschaos
       values: |
         portalScope: "{{ .Values.litmuschaos.scope }}"
-        mongodb:
-          service:
-            type: NodePort
-
       version: v3
 
   # Destination cluster and namespace to deploy the application
