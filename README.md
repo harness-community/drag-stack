@@ -1,10 +1,14 @@
-# Drone CI, Registry, Argo CD & Git repository (DRAG) Stack
+# The DRAG Stack
 
-In this workshop you will learn how to setup [Drone](https://drone.io), [Argo CD](https://argo-cd.readthedocs.io/), [Gitea](https://gitea.io/) and Docker Registry via Nexxus, and [k3d](k3d.io/) as your local **[k3s](https://k3s.io)** based Kubernetes Cluster.
+This project provides instructions to setup the DRAG Stack, which includees: [Drone](https://drone.io), [Argo CD](https://argo-cd.readthedocs.io/), [Gitea](https://gitea.io/), Docker Registry via Nexxus, and [k3d](k3d.io/) as your local **[k3s](https://k3s.io)** based Kubernetes Cluster.
 
-This workshop also shows how to use the Argo CD [declarative setup](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/) to setup [Drone CI](https://drone.io) with Drone Kubernetes runner.
+It also shows you how to use the Argo CD [declarative setup](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/) to setup [Drone CI](https://drone.io) with Drone Kubernetes runner.
 
 The stack also deploys [Argo CD Image Updater](https://argocd-image-updater.readthedocs.io/en/stable) to enable updating the application images via GitOps.
+
+## Workshop
+
+For workshop schedules and related details, visit [DRAG Stack workshop](https://github.com/harness-apps/drag-stack/tree/main/workshop)
 
 ## Required tools
 
