@@ -2,6 +2,10 @@
 
 In this workshop you’ll learn how to set up, configure and run a full-stack, open-source GitOps delivery platform including continuous integration with Drone CI, continuous delivery with Argo CD, and chaos engineering with LitmusChaos. You will be provided with a preconfigured stack with Gitea and Nexus Docker Registry, but the workshop is intended to work with any Git repository (GitHub/GitLab) and container registry (Harbor, etc.). Also included is the open-source tooling you’ll need to deploy and operate this stack afterwards. 
 
+# Upcoming Virtual Workshops
+- [Monday Oct 17th 9:00 am - 12:00 pm Pacific time](https://www.meetup.com/harness/events/288739672/) - virtually taught by Jim Sheldon
+- [Wednesday Nov  9th 11:30 am - 2:30 pm India time](https://www.meetup.com/harness-india/events/288747851/) - virtual tought by Kamesh Sampath
+
 Here is some of what you will learn in this workshop. 
 
 How to use:
