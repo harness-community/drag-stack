@@ -1,1 +1,0 @@
-workshop details go here
